@@ -1,0 +1,9 @@
+<html>
+  <head>
+    <!--#include virtual="head.shtml"-->
+  </head>
+  <body>
+    <!--#include virtual="$ROOT/__tests_/mocks/include/body.shtml"-->
+    <!--#include virtual="$ROOT/__tests_/mocks/include/not-existing-file.shtml"-->
+  </body>
+</html>
