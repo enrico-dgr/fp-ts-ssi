@@ -18,7 +18,7 @@ describe('build', () => {
         build({
           content,
           filePath,
-          params: {},
+          params: { ROOT: path.resolve(__dirname, '..', '..')},
         })
       ),
       E.chain((res) =>

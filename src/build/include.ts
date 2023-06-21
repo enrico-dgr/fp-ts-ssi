@@ -1,5 +1,5 @@
 import path from 'path'
-import { Command, Deps } from './index'
+import { Command, Deps, build } from './index'
 import { pipe } from 'fp-ts/function'
 import * as E from 'fp-ts/Either'
 import { readFileSync } from '@enrico-dgr/fp-ts-fs'
@@ -7,25 +7,36 @@ import { readFileSync } from '@enrico-dgr/fp-ts-fs'
 const regex: Command['regex'] = /#include/
 
 const buildAbsolutePath = (deps: Deps, virtualPath: string) => {
-  
+  let absoluteVirtualPath = ''
 
-  if (/^\//.test(virtualPath)) {
-  
+  if (path.isAbsolute(virtualPath)) {
+    absoluteVirtualPath = virtualPath
+  } else {
+    const dirpath = path.dirname(deps.filePath)
+    absoluteVirtualPath = path.join(dirpath, virtualPath)
   }
+
+  return absoluteVirtualPath
 }
 
 const action: Command['action'] = (fileDeps, actionDeps) => {
-  const dirpath = path.dirname(fileDeps.filePath)
   let res = `<!-- Error while including file -->`
 
-  const virtualPath = actionDeps.match.match(/(?<=virtual=['"])[^'"]*(?=['"])/)
+  const virtualPathMatches = actionDeps.match.match(
+    /(?<=virtual=['"])[^'"]*(?=['"])/
+  )
 
-  if (virtualPath) {
-    // Add SSI variable handling with deps.params
-    const absoluteVirtualPath = path.join(dirpath, virtualPath[0])
-    const fileName = path.basename(absoluteVirtualPath)
+  if (virtualPathMatches) {
+    const virtualPath = build({
+      ...fileDeps,
+      content: virtualPathMatches[0],
+    })
+      .split('/')
+      .join(path.sep)
 
-    res = `<!-- Error while including file: ${fileName} -->`
+    const absoluteVirtualPath = buildAbsolutePath(fileDeps, virtualPath)
+
+    res = `<!-- Error while including file: ${absoluteVirtualPath} -->`
 
     pipe(
       absoluteVirtualPath,
