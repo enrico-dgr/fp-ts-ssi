@@ -1,20 +1,31 @@
 import path from 'path'
-import { Command } from './index'
+import { Command, Deps } from './index'
 import { pipe } from 'fp-ts/function'
 import * as E from 'fp-ts/Either'
 import { readFileSync } from '@enrico-dgr/fp-ts-fs'
 
 const regex: Command['regex'] = /#include/
 
-const action: Command['action'] = ({ content, match, filePath }) => {
-  const fileName = path.basename(filePath)
-  const dirpath = path.dirname(filePath)
-  let res = `<!-- Error while including file: ${fileName} -->`
+const buildAbsolutePath = (deps: Deps, virtualPath: string) => {
+  
 
-  const virtualPath = match.match(/(?<=virtual=['"])[^'"]*(?=['"])/)
+  if (/^\//.test(virtualPath)) {
+  
+  }
+}
+
+const action: Command['action'] = (fileDeps, actionDeps) => {
+  const dirpath = path.dirname(fileDeps.filePath)
+  let res = `<!-- Error while including file -->`
+
+  const virtualPath = actionDeps.match.match(/(?<=virtual=['"])[^'"]*(?=['"])/)
 
   if (virtualPath) {
-    const absoluteVirtualPath = path.join(dirpath, virtualPath[0]);
+    // Add SSI variable handling with deps.params
+    const absoluteVirtualPath = path.join(dirpath, virtualPath[0])
+    const fileName = path.basename(absoluteVirtualPath)
+
+    res = `<!-- Error while including file: ${fileName} -->`
 
     pipe(
       absoluteVirtualPath,
@@ -32,7 +43,7 @@ const action: Command['action'] = ({ content, match, filePath }) => {
     )
   }
 
-  content.replace(match, res);
+  fileDeps.content = fileDeps.content.replace(actionDeps.match, res)
 }
 
 const command: Command = {
@@ -40,4 +51,4 @@ const command: Command = {
   action,
 }
 
-export default command;
+export default command

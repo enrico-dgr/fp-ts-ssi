@@ -1,16 +1,16 @@
-import include from "./include"
+import include from './include'
 
-type Deps = {
+export type Deps = {
   content: string
   filePath: string
   params: Object
 }
 
-type ActionDeps = Deps & { match: string }
+type ActionDeps = { match: string }
 
 export type Command = {
   regex: RegExp
-  action: (deps: ActionDeps) => void
+  action: (fileDeps: Deps, actionDeps: ActionDeps) => void
 }
 
 const commands: Command[] = [include]
@@ -22,7 +22,7 @@ export const build = (deps: Deps) => {
     ssiCommands.forEach((match) =>
       commands.forEach(
         (command) =>
-          command.regex.test(match) && command.action({ ...deps, match })
+          command.regex.test(match) && command.action(deps, { match })
       )
     )
   }
