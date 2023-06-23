@@ -1,7 +1,7 @@
 import { pipe } from 'fp-ts/function'
 import * as E from 'fp-ts/Either'
 import { assignJson } from '@enrico-dgr/fp-ts-fs'
-import { logger } from '../src'
+import { logger } from '@enrico-dgr/fp-ts-logger'
 import path from 'path'
 
 const PKG_CURRENT = path.resolve(__dirname, '../package.json')
