@@ -1,8 +1,9 @@
 import include from './include'
+import setVariable from './setVariable'
 import { Deps } from '..'
 import { Command, buildDoOnPattern } from '../doOnPattern'
 
-const commands: Command<Deps>[] = [include]
+const commands: Command<Deps>[] = [include, setVariable]
 
 export const compileFunctions = buildDoOnPattern(/<!-- *#[^>]+-->/g, commands)
 

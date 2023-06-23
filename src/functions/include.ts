@@ -5,6 +5,7 @@ import * as E from 'fp-ts/Either'
 import { readFileSync } from '@enrico-dgr/fp-ts-fs'
 import { compileOperators } from '../operators'
 import { Command } from '../doOnPattern'
+import { getRegexForParamValue } from '../utils/regex'
 
 const regex: Command<Deps>['regex'] = /#include/
 
@@ -21,22 +22,22 @@ const buildAbsolutePath = (deps: Deps, virtualPath: string) => {
   return absoluteVirtualPath
 }
 
-const action: Command<Deps>['action'] = (fileDeps, actionDeps) => {
+const action: Command<Deps>['action'] = (depsOnPattern, depsOnMatch) => {
   let res = `<!-- Error while including file -->`
 
-  const virtualPathMatches = actionDeps.match.match(
-    /(?<=virtual=['"])[^'"]*(?=['"])/
+  const virtualPathMatches = depsOnMatch.match.match(
+    getRegexForParamValue('virtual')
   )
 
   if (virtualPathMatches) {
     const virtualPath = compileOperators({
-      ...fileDeps,
+      ...depsOnPattern,
       content: virtualPathMatches[0],
     })
       .split('/')
       .join(path.sep)
 
-    const absoluteVirtualPath = buildAbsolutePath(fileDeps, virtualPath)
+    const absoluteVirtualPath = buildAbsolutePath(depsOnPattern, virtualPath)
 
     res = `<!-- Error while including file: ${path.basename(
       absoluteVirtualPath
@@ -58,7 +59,7 @@ const action: Command<Deps>['action'] = (fileDeps, actionDeps) => {
     )
   }
 
-  fileDeps.content = fileDeps.content.replace(actionDeps.match, res)
+  depsOnPattern.content = depsOnPattern.content.replace(depsOnMatch.match, res)
 }
 
 const command: Command<Deps> = {

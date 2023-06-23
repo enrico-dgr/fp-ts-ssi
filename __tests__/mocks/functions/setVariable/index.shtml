@@ -1,0 +1,4 @@
+<html>
+  <head><!--#set var="headFileName" value="head.shtml"--></head>
+  <body><!--#set var="BODY_FILE_NAME" value="body.shtml"--></body>
+</html>

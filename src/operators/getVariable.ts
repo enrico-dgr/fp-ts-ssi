@@ -10,7 +10,7 @@ const action: Command<Deps>['action'] = (depsOnPattern, depsOnMatch) => {
     const variable = variableMatches[0]
 
     if (depsOnPattern.params[variable]) {
-      res = depsOnPattern.params[variable]
+      res = depsOnPattern.params[variable] ?? 'undefined'
     }
   }
 
