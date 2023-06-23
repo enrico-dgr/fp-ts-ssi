@@ -6,35 +6,35 @@ export type BuildDeps<O extends {}> = O & MinimalDeps
 
 type ActionDeps = { match: string }
 
-export type Command<Deps extends MinimalDeps> = {
+export type Action<Deps extends MinimalDeps> = {
   /**
    * If the action needs another validation on the `match` before running.
    */
   regex?: RegExp
-  action: (depsOnPattern: Deps, depsOnMatch: ActionDeps) => void
+  do: (depsOnPattern: Deps, depsOnMatch: ActionDeps) => void
 }
 
-const buildOnCommand =
+const buildOnAction =
   <Deps extends MinimalDeps>(deps: Deps, match: string) =>
-  (command: Command<Deps>) => {
+  (command: Action<Deps>) => {
     if (command.regex) {
       if (command.regex.test(match)) {
-        command.action(deps, { match })
+        command.do(deps, { match })
       }
     } else {
-      command.action(deps, { match })
+      command.do(deps, { match })
     }
   }
 
 const buildOnMatch =
-  <Deps extends MinimalDeps>(deps: Deps, commands: Command<Deps>[]) =>
+  <Deps extends MinimalDeps>(deps: Deps, commands: Action<Deps>[]) =>
   (match: string) => {
-    const onCommand = buildOnCommand(deps, match)
+    const onCommand = buildOnAction(deps, match)
     commands.forEach(onCommand)
   }
 
 export const buildDoOnPattern =
-  <Deps extends MinimalDeps>(pattern: RegExp, commands: Command<Deps>[]) =>
+  <Deps extends MinimalDeps>(pattern: RegExp, commands: Action<Deps>[]) =>
   (deps: Deps) => {
     // Commands and variables
     const ssiPatterns = deps.content.match(pattern)

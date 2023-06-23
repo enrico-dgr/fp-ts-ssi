@@ -1,16 +1,16 @@
 import { Deps } from './index'
-import { Command } from '../doOnPattern'
+import { Action } from '../doOnPattern'
 import { getRegexForParamValue, regexForFuncParams } from '../utils/regex'
 import { compileOperators } from '../operators'
 
-const regex: Command<Deps>['regex'] = /#echo/
+const regex: Action<Deps>['regex'] = /#echo/
 
 /**
  * On success, the function's line disappears, otherwise an error is shown.
  * @param depsOnPattern 
  * @param depsOnMatch 
  */
-const action: Command<Deps>['action'] = (depsOnPattern, depsOnMatch) => {
+const action: Action<Deps>['do'] = (depsOnPattern, depsOnMatch) => {
   let res = `<!-- Error while printing variable -->`
 
   // get variable key
@@ -38,9 +38,9 @@ const action: Command<Deps>['action'] = (depsOnPattern, depsOnMatch) => {
   depsOnPattern.content = depsOnPattern.content.replace(depsOnMatch.match, res)
 }
 
-const command: Command<Deps> = {
+const command: Action<Deps> = {
   regex,
-  action,
+  do: action,
 }
 
 export default command

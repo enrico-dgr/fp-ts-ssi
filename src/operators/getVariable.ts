@@ -1,9 +1,9 @@
 import { Deps } from '.'
-import { Command } from '../doOnPattern'
+import { Action } from '../doOnPattern'
 
 const regex = /\$\{[^\}]*\}/;
 
-const action: Command<Deps>['action'] = (depsOnPattern, depsOnMatch) => {
+const action: Action<Deps>['do'] = (depsOnPattern, depsOnMatch) => {
   let res = 'undefined'
 
   const variableMatches = depsOnMatch.match.match(/(?<=\$\{)[^\}]*(?=\})/)
@@ -19,9 +19,9 @@ const action: Command<Deps>['action'] = (depsOnPattern, depsOnMatch) => {
   depsOnPattern.content = depsOnPattern.content.replace(depsOnMatch.match, res)
 }
 
-const command: Command<Deps> = {
+const command: Action<Deps> = {
   regex,
-  action,
+  do: action,
 }
 
 export default command
