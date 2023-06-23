@@ -4,12 +4,19 @@ import { readFileSync } from '@enrico-dgr/fp-ts-fs'
 import path from 'path'
 import { compileFunctions } from '../../src/functions'
 
-describe('build', () => {
-  const mocksPath = path.resolve(__dirname, '..', 'mocks')
+describe('functions', () => {
+  let testName = ''
+  const mocksPath = path.resolve(__dirname, '..', 'mocks', 'functions')
 
-  it('include', () => {
-    const filePath = path.join(mocksPath, 'include', 'index.shtml')
-    const resultFilePath = path.join(mocksPath, 'include', 'result.html')
+  testName = 'include'
+  it(testName, () => {
+    let res = 'res'
+    let expectedRes = 'expectedRes'
+    
+    const filePath = path.join(mocksPath, testName, 'index.shtml')
+    const resultFilePath = path.join(mocksPath, testName, 'result.html')
+
+    const params = { ROOT: path.resolve(__dirname, '..', '..') }
 
     pipe(
       readFileSync(filePath),
@@ -18,7 +25,7 @@ describe('build', () => {
         compileFunctions({
           content,
           filePath,
-          params: { ROOT: path.resolve(__dirname, '..', '..') },
+          params,
         })
       ),
       E.chain((res) =>
@@ -31,9 +38,15 @@ describe('build', () => {
           }))
         )
       ),
-      E.map(({ res, expectedRes }) => {
-        expect(res).toBe(expectedRes)
+      E.map((outputs) => {
+        res = outputs.res
+        expectedRes = outputs.expectedRes
+      }),
+      E.mapLeft((e) => {
+        res = e.message
       })
     )
+
+    expect(res).toBe(expectedRes)
   })
 })
