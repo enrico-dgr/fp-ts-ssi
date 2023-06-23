@@ -1,0 +1,8 @@
+<html>
+  <head>
+    <meta name="title" content="<!--#echo var="title"-->">
+  </head>
+  <body>
+    <h1><!--#echo var="heading"--></h1>
+  </body>
+</html>

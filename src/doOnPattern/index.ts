@@ -18,7 +18,9 @@ const buildOnCommand =
   <Deps extends MinimalDeps>(deps: Deps, match: string) =>
   (command: Command<Deps>) => {
     if (command.regex) {
-      command.regex.test(match) && command.action(deps, { match })
+      if (command.regex.test(match)) {
+        command.action(deps, { match })
+      }
     } else {
       command.action(deps, { match })
     }

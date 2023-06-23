@@ -1,6 +1,8 @@
 import { Deps } from '.'
 import { Command } from '../doOnPattern'
 
+const regex = /\$\{[^\}]*\}/;
+
 const action: Command<Deps>['action'] = (depsOnPattern, depsOnMatch) => {
   let res = 'undefined'
 
@@ -18,6 +20,7 @@ const action: Command<Deps>['action'] = (depsOnPattern, depsOnMatch) => {
 }
 
 const command: Command<Deps> = {
+  regex,
   action,
 }
 
