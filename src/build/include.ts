@@ -1,8 +1,9 @@
 import path from 'path'
-import { Command, Deps, build } from './index'
+import { Command, Deps } from './index'
 import { pipe } from 'fp-ts/function'
 import * as E from 'fp-ts/Either'
 import { readFileSync } from '@enrico-dgr/fp-ts-fs'
+import { compileOperators } from '../operators'
 
 const regex: Command['regex'] = /#include/
 
@@ -27,7 +28,7 @@ const action: Command['action'] = (fileDeps, actionDeps) => {
   )
 
   if (virtualPathMatches) {
-    const virtualPath = build({
+    const virtualPath = compileOperators({
       ...fileDeps,
       content: virtualPathMatches[0],
     })
@@ -36,7 +37,7 @@ const action: Command['action'] = (fileDeps, actionDeps) => {
 
     const absoluteVirtualPath = buildAbsolutePath(fileDeps, virtualPath)
 
-    res = `<!-- Error while including file: ${absoluteVirtualPath} -->`
+    res = `<!-- Error while including file: ${path.basename(absoluteVirtualPath)} -->`
 
     pipe(
       absoluteVirtualPath,

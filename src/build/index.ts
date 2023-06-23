@@ -1,5 +1,4 @@
 import include from './include'
-import variable from './variable'
 
 export type Deps = {
   content: string
@@ -14,11 +13,11 @@ export type Command = {
   action: (fileDeps: Deps, actionDeps: ActionDeps) => void
 }
 
-const commands: Command[] = [include, variable]
+const commands: Command[] = [include]
 
 export const build = (deps: Deps) => {
   // Commands and variables
-  const ssiPatterns = deps.content.match(/(<!-- *#[^-\->]+-->|\$\{[^\}]*\})/g)
+  const ssiPatterns = deps.content.match(/<!-- *#[^>]+-->/g)
 
   if (ssiPatterns) {
     ssiPatterns.forEach((match) =>

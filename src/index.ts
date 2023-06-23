@@ -1,3 +1,6 @@
-import * as E from 'fp-ts/Either'
-import { readFileSync } from '@enrico-dgr/fp-ts-fs'
+import { BuildDeps } from './doOnPattern'
 
+export type Deps = BuildDeps<{
+  filePath: string
+  params: Record<string, string>
+}>
