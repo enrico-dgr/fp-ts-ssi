@@ -2,7 +2,7 @@ import * as E from 'fp-ts/Either'
 import { pipe } from 'fp-ts/function'
 import { readFileSync } from '@enrico-dgr/fp-ts-fs'
 import path from 'path'
-import { build } from '../../src/build'
+import { compileFunctions } from '../../src/functions'
 
 describe('build', () => {
   const mocksPath = path.resolve(__dirname, '..', 'mocks')
@@ -15,10 +15,10 @@ describe('build', () => {
       readFileSync(filePath),
       E.map((c) => (typeof c === 'string' ? c : c.toString('utf-8'))),
       E.map((content) =>
-        build({
+        compileFunctions({
           content,
           filePath,
-          params: { ROOT: path.resolve(__dirname, '..', '..')},
+          params: { ROOT: path.resolve(__dirname, '..', '..') },
         })
       ),
       E.chain((res) =>

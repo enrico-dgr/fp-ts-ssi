@@ -6,4 +6,4 @@ export type Deps = Pick<FullDeps, 'content' | 'params'>
 
 const commands: Command<Deps>[] = [getVariable]
 
-export const compileOperators = buildDoOnPattern(/\$\{[^\}]*\}/, commands)
+export const compileOperators = buildDoOnPattern(/\$\{[^\}]*\}/g, commands)

@@ -1,11 +1,12 @@
 import path from 'path'
-import { Command, Deps } from './index'
+import { Deps } from './index'
 import { pipe } from 'fp-ts/function'
 import * as E from 'fp-ts/Either'
 import { readFileSync } from '@enrico-dgr/fp-ts-fs'
 import { compileOperators } from '../operators'
+import { Command } from '../doOnPattern'
 
-const regex: Command['regex'] = /#include/
+const regex: Command<Deps>['regex'] = /#include/
 
 const buildAbsolutePath = (deps: Deps, virtualPath: string) => {
   let absoluteVirtualPath = ''
@@ -20,7 +21,7 @@ const buildAbsolutePath = (deps: Deps, virtualPath: string) => {
   return absoluteVirtualPath
 }
 
-const action: Command['action'] = (fileDeps, actionDeps) => {
+const action: Command<Deps>['action'] = (fileDeps, actionDeps) => {
   let res = `<!-- Error while including file -->`
 
   const virtualPathMatches = actionDeps.match.match(
@@ -37,7 +38,9 @@ const action: Command['action'] = (fileDeps, actionDeps) => {
 
     const absoluteVirtualPath = buildAbsolutePath(fileDeps, virtualPath)
 
-    res = `<!-- Error while including file: ${path.basename(absoluteVirtualPath)} -->`
+    res = `<!-- Error while including file: ${path.basename(
+      absoluteVirtualPath
+    )} -->`
 
     pipe(
       absoluteVirtualPath,
@@ -58,7 +61,7 @@ const action: Command['action'] = (fileDeps, actionDeps) => {
   fileDeps.content = fileDeps.content.replace(actionDeps.match, res)
 }
 
-const command: Command = {
+const command: Command<Deps> = {
   regex,
   action,
 }
