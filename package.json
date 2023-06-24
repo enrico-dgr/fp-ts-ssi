@@ -1,6 +1,6 @@
 {
   "name": "@enrico-dgr/fp-ts-ssi",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "repository": "https://github.com/enrico-dgr/fp-ts-ssi.git",
   "author": "enrico-dgr <enrico.digrazia98@gmail.com>",
   "license": "MIT",
@@ -31,7 +31,7 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
-    "@enrico-dgr/fp-ts-fs": "^1.0.1",
+    "@enrico-dgr/fp-ts-fs": "^1.0.3",
     "@enrico-dgr/fp-ts-logger": "^0.1.1",
     "fp-ts": "^2.13.1"
   }

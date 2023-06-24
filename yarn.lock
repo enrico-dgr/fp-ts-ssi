@@ -306,10 +306,10 @@
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
 
-"@enrico-dgr/fp-ts-fs@^1.0.1":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@enrico-dgr/fp-ts-fs/-/fp-ts-fs-1.0.2.tgz#933e713b88aa8e6906025b827c30ab8fccbfcf4b"
-  integrity sha512-80/ymKtYVZb9wUXHlMOdQGUusruVPjWUWKpBH9X6Xu9MtUxCNHWHYfhlPPgDTu3RQm2fOIW5XwKjsyUNJCf/DQ==
+"@enrico-dgr/fp-ts-fs@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@enrico-dgr/fp-ts-fs/-/fp-ts-fs-1.0.3.tgz#45d429c7876aa16e86c7355182ddc164a017eccc"
+  integrity sha512-uRQYDqQoCB9YuVaXJ6hnqVXnVV67UKJiQFK4q79hTMaOyv1ojhqsPqU0aJ89Lupi7PcE8GORvGyvleG10BwWfA==
   dependencies:
     "@enrico-dgr/fp-ts-logger" "^0.1.1"
 

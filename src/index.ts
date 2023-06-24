@@ -26,6 +26,7 @@ const compileHtmlFiles = (
           (c) => ({
             content: c,
             path: f.path,
+            name: f.name
           })
         )
       )
