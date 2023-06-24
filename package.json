@@ -1,6 +1,6 @@
 {
   "name": "@enrico-dgr/fp-ts-ssi",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "repository": "https://github.com/enrico-dgr/fp-ts-ssi.git",
   "author": "enrico-dgr <enrico.digrazia98@gmail.com>",
   "license": "MIT",
@@ -12,6 +12,7 @@
     "access": "public"
   },
   "scripts": {
+    "prebuild": "yarn test",
     "build": "tsc --build tsconfig.build.json && tsc --build tsconfig.build-es6.json",
     "postbuild": "ts-node ./scripts/buildPackageJson.ts",
     "test": "jest"
@@ -30,8 +31,8 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
+    "@enrico-dgr/fp-ts-fs": "^1.0.1",
     "@enrico-dgr/fp-ts-logger": "^0.1.1",
-    "fp-ts": "^2.13.1",
-    "@enrico-dgr/fp-ts-fs": "^1.0.0"
+    "fp-ts": "^2.13.1"
   }
 }

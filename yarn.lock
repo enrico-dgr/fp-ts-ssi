@@ -306,7 +306,7 @@
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
 
-"@enrico-dgr/fp-ts-fs@^1.0.0":
+"@enrico-dgr/fp-ts-fs@^1.0.1":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@enrico-dgr/fp-ts-fs/-/fp-ts-fs-1.0.2.tgz#933e713b88aa8e6906025b827c30ab8fccbfcf4b"
   integrity sha512-80/ymKtYVZb9wUXHlMOdQGUusruVPjWUWKpBH9X6Xu9MtUxCNHWHYfhlPPgDTu3RQm2fOIW5XwKjsyUNJCf/DQ==
