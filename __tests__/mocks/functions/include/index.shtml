@@ -1,9 +1,13 @@
 <html>
   <head>
     <!--#include virtual="head.shtml"-->
+    <!--#include virtual="not-existing-file.shtml"-->
   </head>
   <body>
+    <!--#include virtual="./body.shtml"-->
     <!--#include virtual="${ROOT}/__tests__/mocks/functions/include/body.shtml"-->
+    <!--#include virtual="$ROOT/__tests__/mocks/functions/include/body.shtml"-->
+    <!--#include virtual="./path/to/not-existing-file.shtml"-->
     <!--#include virtual="${ROOT}/__tests__/mocks/functions/include/not-existing-file.shtml"-->
   </body>
 </html>

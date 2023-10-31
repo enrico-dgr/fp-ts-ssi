@@ -1,1 +1,2 @@
 Today is ${weekDay}
+Today is $weekDay

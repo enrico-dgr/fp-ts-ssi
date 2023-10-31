@@ -39,9 +39,7 @@ const action: Action<Deps>['do'] = (depsOnPattern, depsOnMatch) => {
 
     const absoluteVirtualPath = buildAbsolutePath(depsOnPattern, virtualPath)
 
-    res = `<!-- Error while including file: ${path.basename(
-      absoluteVirtualPath
-    )} -->`
+    res = `<!-- Error while including file: ${virtualPath} -->`
 
     pipe(
       absoluteVirtualPath,
