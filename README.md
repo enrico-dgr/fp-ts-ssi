@@ -71,4 +71,4 @@ console.log(filesInfos[1].content)
 // Your Website
 ```
 
-The `compileHtmlFiles` function takes an options object with a `files` array of file paths to compile, and an optional `params` object for passing global parameters. It returns a Promise resolving to the compiled HTML output.
+The `compileHtmlFiles` function takes an options object with a `files` array of file paths to compile, and an optional `params` object for passing global parameters. It returns an Either with the compiled HTML outputs or an Error.
