@@ -7,11 +7,12 @@ import { FileInfo, readFilesSync } from '@enrico-dgr/fp-ts-fs'
 
 type Deps = BuildDeps<{
   filePath: string
+  options?: { baseDir?: string }
   params: Record<string, string | undefined>
 }>
 
 const compileHtmlFiles = (
-  deps: Parameters<typeof readFilesSync>[0] & Pick<Deps, 'params'>
+  deps: Parameters<typeof readFilesSync>[0] & Pick<Deps, 'params' | 'options'>
 ): E.Either<Error, FileInfo[]> =>
   pipe(
     readFilesSync(deps),
@@ -20,6 +21,7 @@ const compileHtmlFiles = (
         pipe(
           compileFunctions({
             params: { ...deps.params },
+            options: deps.options,
             filePath: f.path,
             content: f.content,
           }),

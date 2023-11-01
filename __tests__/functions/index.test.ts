@@ -16,6 +16,7 @@ describe(NAME, () => {
     let expectedRes = 'expectedRes'
 
     const params = { ROOT: path.resolve(__dirname, '..', '..') }
+    const options = { baseDir: path.resolve(__dirname, '../mocks/functions/include') }
 
     pipe(
       readFileSync(CONSTS_INCLUDE.filePath),
@@ -24,6 +25,7 @@ describe(NAME, () => {
         compileFunctions({
           content,
           filePath: CONSTS_INCLUDE.filePath,
+          options,
           params,
         })
       ),

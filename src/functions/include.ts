@@ -13,7 +13,12 @@ const buildAbsolutePath = (deps: Deps, virtualPath: string) => {
   let absoluteVirtualPath = ''
 
   if (path.isAbsolute(virtualPath)) {
-    absoluteVirtualPath = virtualPath
+    if (virtualPath[0] === path.sep && deps.options?.baseDir) {
+      absoluteVirtualPath = path.join(deps.options.baseDir, virtualPath)
+    } else { 
+      absoluteVirtualPath = virtualPath
+    }
+
   } else {
     const dirpath = path.dirname(deps.filePath)
     absoluteVirtualPath = path.join(dirpath, virtualPath)
