@@ -1,0 +1,9 @@
+
+<div>Init body's caption</div>
+<!--#set var="BODY_CAPTION" value="This is a body's caption"-->
+<div><!-- #echo var="BODY_CAPTION" --></div>
+<div>
+  <div>
+    <!-- #echo var="BODY_CAPTION" -->
+  </div>
+</div>

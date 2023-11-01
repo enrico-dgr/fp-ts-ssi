@@ -9,5 +9,7 @@
     <!--#include virtual="$ROOT/__tests__/mocks/functions/include/body.shtml"-->
     <!--#include virtual="./path/to/not-existing-file.shtml"-->
     <!--#include virtual="${ROOT}/__tests__/mocks/functions/include/not-existing-file.shtml"-->
+    <!--#include virtual="body-paragraph.shtml"-->
+    <!--#include virtual="body-caption.shtml"-->
   </body>
 </html>

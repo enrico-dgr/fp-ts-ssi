@@ -12,7 +12,7 @@
  * @returns
  */
 export const getRegexForParamValue = (key: string) =>
-  new RegExp(`(?<=${key}=['"])[^'"]*(?=['"])`)
+  new RegExp(`((?<=${key}=')[^']*(?=')|(?<=${key}=")[^"]*(?="))`)
 
 /**
  * @example

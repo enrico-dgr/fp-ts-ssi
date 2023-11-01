@@ -1,0 +1,2 @@
+<!--#set var="BODY_PARAGRAPH" value="This is a body's paragraph"-->
+<div><!-- #echo var="BODY_PARAGRAPH" --></div>

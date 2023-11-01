@@ -1,5 +1,5 @@
 import path from 'path'
-import { Deps } from './index'
+import { Deps, compileFunctions } from './index'
 import { pipe } from 'fp-ts/function'
 import * as E from 'fp-ts/Either'
 import { readFileSync } from '@enrico-dgr/fp-ts-fs'
@@ -51,8 +51,18 @@ const action: Action<Deps>['do'] = (depsOnPattern, depsOnMatch) => {
 
         return c
       }),
-      E.map((c) => {
-        res = c
+      E.map((rawContent) => {
+        res = compileFunctions({
+          params: depsOnPattern.params,
+          content: rawContent,
+          filePath: absoluteVirtualPath,
+        })
+
+        // Adjust spacings
+        const indentation = depsOnPattern.content.match(new RegExp(`(?<=[\r\n])[\t ]*(?=${depsOnMatch.match})`));
+        if (indentation) {
+          res = res.replace(/(^[\r\n \t]+|[\r\n \t]+$)/g, '').replace(/([\r\n]+)/g, `$1${indentation[0]}`)
+        }
       })
     )
   }
