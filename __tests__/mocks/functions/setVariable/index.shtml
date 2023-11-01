@@ -1,7 +1,7 @@
 <html>
   <head><!--#set var="headFileName" value="head.shtml"--></head>
   <body>
-    <div><!--#set var="BODY_FILE_NAME" value="body.shtml"--></div>
+    <div><!--#SET var="BODY_FILE_NAME" value="body.shtml"--></div>
     <div><!-- #echo var="BODY_FILE_NAME" --></div>
   </body>
 </html>

@@ -3,7 +3,7 @@ import { Action } from '../doOnPattern'
 import { getRegexForParamValue, regexForFuncParams } from '../utils/regex'
 import { compileOperators } from '../operators'
 
-const regex: Action<Deps>['regex'] = /#echo/
+const regex: Action<Deps>['regex'] = /#echo/i
 
 /**
  * On success, the function's line disappears, otherwise an error is shown.

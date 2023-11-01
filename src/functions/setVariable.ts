@@ -2,7 +2,7 @@ import { Deps } from './index'
 import { Action } from '../doOnPattern'
 import { getRegexForParamValue, regexForFuncParams } from '../utils/regex'
 
-const regex: Action<Deps>['regex'] = /#set/
+const regex: Action<Deps>['regex'] = /#set/i
 
 /**
  * On success, the function's line disappears, otherwise an error is shown.

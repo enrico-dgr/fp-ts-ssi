@@ -7,7 +7,7 @@ import { compileOperators } from '../operators'
 import { Action } from '../doOnPattern'
 import { getRegexForParamValue } from '../utils/regex'
 
-const regex: Action<Deps>['regex'] = /#include/
+const regex: Action<Deps>['regex'] = /#include/i
 
 const buildAbsolutePath = (deps: Deps, virtualPath: string) => {
   let absoluteVirtualPath = ''
